@@ -1,0 +1,5 @@
+# Docker
+docker/mysql/data/
+
+# OS
+.DS_Store
