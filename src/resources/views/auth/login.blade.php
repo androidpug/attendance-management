@@ -22,10 +22,6 @@
             @enderror
         </div>
 
-        @if($errors->has('email') && !$errors->has('name'))
-            <p class="error-message">{{ $errors->first('email') }}</p>
-        @endif
-
         <button class="auth-form__button" type="submit">ログインする</button>
         <a class="auth-form__link" href="/register">会員登録はこちら</a>
     </form>
