@@ -39,6 +39,14 @@ php artisan key:generate
 php artisan migrate:fresh --seed
 ```
 
+## メール認証について
+開発環境ではメールはログファイルに出力されます。
+認証リンクは以下で確認できます：
+```bash
+tail -f storage/logs/laravel.log
+```
+ログに表示されたURLをブラウザで開くと認証完了です。
+
 ## 動作確認用ログイン情報
 ### 一般ユーザー1
 - メールアドレス: user1@example.com
@@ -53,4 +61,4 @@ php artisan migrate:fresh --seed
 - パスワード: password
 
 ## ER図
-![ER図](./er-diagram.drawio)
+![ER図](./src/er-diagram.png)
