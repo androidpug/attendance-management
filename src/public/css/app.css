@@ -345,3 +345,23 @@ body {
     cursor: default;
     font-weight: normal;
 }
+
+/* ===== レポート画面 ===== */
+.report-card {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 20px;
+    min-width: 180px;
+}
+
+.report-card__label {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.report-card__value {
+    font-size: 24px;
+    font-weight: bold;
+}

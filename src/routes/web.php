@@ -34,6 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/attendance/detail/{id}', [AttendanceController::class, 'detail']);
     Route::put('/attendance/detail/{id}', [AttendanceController::class, 'update']);
     Route::get('/stamp_correction_request/list', [RequestController::class, 'list']);
+    Route::get('/attendance/report', [AttendanceController::class, 'report']);
 });
 
 // 管理者認証
