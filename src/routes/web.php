@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AttendanceController as AdminAttendanceController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\StaffController as AdminStaffController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\RequestController;
 use Illuminate\Support\Facades\Route;
@@ -31,4 +32,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/attendance/list', [AdminAttendanceController::class, 'list']);
     Route::get('/attendance/{id}', [AdminAttendanceController::class, 'detail']);
     Route::put('/attendance/{id}', [AdminAttendanceController::class, 'update']);
+    Route::get('/staff/list', [AdminStaffController::class, 'list']);
+    Route::get('/attendance/staff/{id}', [AdminStaffController::class, 'attendance']);
 });
