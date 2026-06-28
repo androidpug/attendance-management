@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AttendanceController as AdminAttendanceController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\RequestController as AdminRequestController;
 use App\Http\Controllers\Admin\StaffController as AdminStaffController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\RequestController;
@@ -34,4 +35,6 @@ Route::prefix('admin')->group(function () {
     Route::put('/attendance/{id}', [AdminAttendanceController::class, 'update']);
     Route::get('/staff/list', [AdminStaffController::class, 'list']);
     Route::get('/attendance/staff/{id}', [AdminStaffController::class, 'attendance']);
+    Route::get('/stamp_correction_request/approve/{id}', [AdminRequestController::class, 'detail']);
+    Route::post('/stamp_correction_request/approve/{id}', [AdminRequestController::class, 'approve']);
 });

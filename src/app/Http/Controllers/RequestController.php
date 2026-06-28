@@ -13,6 +13,20 @@ class RequestController extends Controller
         $user = Auth::user();
         $tab = $request->query('tab', 'pending');
 
+        if ($user->admin_status) {
+            $pending = AttendanceCorrection::where('status', 0)
+                ->with(['attendanceRecord.user'])
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            $approved = AttendanceCorrection::where('status', 1)
+                ->with(['attendanceRecord.user'])
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            return view('admin.request.list', compact('pending', 'approved', 'tab'));
+        }
+
         $pending = AttendanceCorrection::where('user_id', $user->id)
             ->where('status', 0)
             ->with(['attendanceRecord'])
