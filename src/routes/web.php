@@ -29,4 +29,6 @@ Route::prefix('admin')->group(function () {
     Route::post('/login', [AdminAuthController::class, 'login']);
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
     Route::get('/attendance/list', [AdminAttendanceController::class, 'list']);
+    Route::get('/attendance/{id}', [AdminAttendanceController::class, 'detail']);
+    Route::put('/attendance/{id}', [AdminAttendanceController::class, 'update']);
 });

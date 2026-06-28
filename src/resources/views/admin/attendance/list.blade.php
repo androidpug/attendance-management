@@ -37,7 +37,7 @@
                         @if($attendance['record'])
                             <a href="/admin/attendance/{{ $attendance['record']->id }}" class="detail-link">詳細</a>
                         @else
-                            <span class="detail-link">詳細</span>
+                            <span class="detail-link detail-link--disabled">詳細</span>
                         @endif
                     </td>
                 </tr>

@@ -61,4 +61,49 @@ class AttendanceController extends Controller
 
         return view('admin.attendance.list', compact('attendances', 'currentDate', 'prevDate', 'nextDate'));
     }
+
+    public function detail($id)
+    {
+        $attendance = AttendanceRecord::with(['user', 'breakTimes', 'attendanceCorrections'])
+            ->findOrFail($id);
+
+        $isPending = $attendance->attendanceCorrections
+            ->where('status', 0)
+            ->count() > 0;
+
+        return view('admin.attendance.detail', compact('attendance', 'isPending'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $attendance = AttendanceRecord::findOrFail($id);
+
+        $isPending = $attendance->attendanceCorrections()
+            ->where('status', 0)
+            ->count() > 0;
+
+        if ($isPending) {
+            return redirect("/admin/attendance/{$id}");
+        }
+
+        $attendance->update([
+            'clock_in' => $request->clock_in,
+            'clock_out' => $request->clock_out,
+            'comment' => $request->comment,
+        ]);
+
+        if ($request->breaks) {
+            foreach ($request->breaks as $breakId => $breakData) {
+                $break = \App\Models\BreakTime::find($breakId);
+                if ($break) {
+                    $break->update([
+                        'break_in' => $breakData['break_in'] ?? $break->break_in,
+                        'break_out' => $breakData['break_out'] ?? $break->break_out,
+                    ]);
+                }
+            }
+        }
+
+        return redirect('/admin/attendance/list');
+    }
 }
