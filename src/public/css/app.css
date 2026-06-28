@@ -339,3 +339,9 @@ body {
     font-weight: bold;
     border-bottom: 2px solid #000;
 }
+
+.detail-link--disabled {
+    color: #ccc;
+    cursor: default;
+    font-weight: normal;
+}
