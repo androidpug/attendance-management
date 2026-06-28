@@ -238,4 +238,102 @@ class AttendanceController extends Controller
 
         return redirect('/stamp_correction_request/list');
     }
+
+    public function report()
+    {
+        $user = Auth::user();
+        $now = Carbon::now();
+
+        // 過去6ヶ月のデータを取得
+        $months = [];
+        $totalWorkMinutes = 0;
+        $totalOvertimeMinutes = 0;
+        $workDays = 0;
+
+        for ($i = 5; $i >= 0; $i--) {
+            $month = $now->copy()->subMonths($i);
+            $records = AttendanceRecord::where('user_id', $user->id)
+                ->whereYear('date', $month->year)
+                ->whereMonth('date', $month->month)
+                ->with('breakTimes')
+                ->get();
+
+            $monthWorkMinutes = 0;
+            $monthOvertimeMinutes = 0;
+
+            foreach ($records as $record) {
+                if ($record->clock_in && $record->clock_out) {
+                    $breakMinutes = 0;
+                    foreach ($record->breakTimes as $break) {
+                        if ($break->break_in && $break->break_out) {
+                            $breakMinutes += Carbon::parse($break->break_out)
+                                ->diffInMinutes(Carbon::parse($break->break_in));
+                        }
+                    }
+                    $workMinutes = Carbon::parse($record->clock_out)
+                        ->diffInMinutes(Carbon::parse($record->clock_in)) - $breakMinutes;
+                    $monthWorkMinutes += $workMinutes;
+                    $workDays++;
+
+                    // 残業（8時間＝480分超）
+                    if ($workMinutes > 480) {
+                        $monthOvertimeMinutes += $workMinutes - 480;
+                    }
+                }
+            }
+
+            $totalWorkMinutes += $monthWorkMinutes;
+            $totalOvertimeMinutes += $monthOvertimeMinutes;
+
+            $months[] = [
+                'month' => $month->format('Y-m'),
+                'work' => sprintf('%dh %dm', intdiv($monthWorkMinutes, 60), $monthWorkMinutes % 60),
+                'overtime' => sprintf('%dh %dm', intdiv($monthOvertimeMinutes, 60), $monthOvertimeMinutes % 60),
+            ];
+        }
+
+        $avgWorkMinutes = $workDays > 0 ? intdiv($totalWorkMinutes, $workDays) : 0;
+
+        // 今月の異常検知
+        $thisMonth = AttendanceRecord::where('user_id', $user->id)
+            ->whereYear('date', $now->year)
+            ->whereMonth('date', $now->month)
+            ->with('breakTimes')
+            ->get();
+
+        $lateCount = 0;
+        $earlyLeaveCount = 0;
+        $longWorkCount = 0;
+
+        foreach ($thisMonth as $record) {
+            if ($record->clock_in && Carbon::parse($record->clock_in)->format('H:i') > '09:00') {
+                $lateCount++;
+            }
+            if ($record->clock_out && Carbon::parse($record->clock_out)->format('H:i') < '18:00') {
+                $earlyLeaveCount++;
+            }
+            if ($record->clock_in && $record->clock_out) {
+                $breakMinutes = 0;
+                foreach ($record->breakTimes as $break) {
+                    if ($break->break_in && $break->break_out) {
+                        $breakMinutes += Carbon::parse($break->break_out)
+                            ->diffInMinutes(Carbon::parse($break->break_in));
+                    }
+                }
+                $workMinutes = Carbon::parse($record->clock_out)
+                    ->diffInMinutes(Carbon::parse($record->clock_in)) - $breakMinutes;
+                if ($workMinutes > 600) { // 10時間超
+                    $longWorkCount++;
+                }
+            }
+        }
+
+        $summary = [
+            'total_work' => sprintf('%dh %dm', intdiv($totalWorkMinutes, 60), $totalWorkMinutes % 60),
+            'total_overtime' => sprintf('%dh %dm', intdiv($totalOvertimeMinutes, 60), $totalOvertimeMinutes % 60),
+            'avg_work' => sprintf('%dh %dm', intdiv($avgWorkMinutes, 60), $avgWorkMinutes % 60),
+        ];
+
+        return view('attendance.report', compact('summary', 'months', 'lateCount', 'earlyLeaveCount', 'longWorkCount'));
+    }
 }
