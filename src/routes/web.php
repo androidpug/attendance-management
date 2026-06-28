@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AttendanceController as AdminAttendanceController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\RequestController;
@@ -27,4 +28,5 @@ Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminAuthController::class, 'showLogin'])->name('admin.login');
     Route::post('/login', [AdminAuthController::class, 'login']);
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+    Route::get('/attendance/list', [AdminAttendanceController::class, 'list']);
 });
