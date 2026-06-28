@@ -48,4 +48,5 @@ Route::prefix('admin')->group(function () {
     Route::get('/attendance/staff/{id}', [AdminStaffController::class, 'attendance']);
     Route::get('/stamp_correction_request/approve/{id}', [AdminRequestController::class, 'detail']);
     Route::post('/stamp_correction_request/approve/{id}', [AdminRequestController::class, 'approve']);
+    Route::get('/attendance/staff/{id}/csv', [AdminStaffController::class, 'csv']);
 });
