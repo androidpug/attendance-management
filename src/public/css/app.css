@@ -182,7 +182,7 @@ body {
 }
 
 .attendance-list-inner {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
@@ -317,4 +317,25 @@ body {
     text-align: right;
     font-size: 14px;
     margin-top: 10px;
+}
+
+/* ===== タブナビゲーション ===== */
+.tab-nav {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.tab-nav__item {
+    padding: 12px 30px;
+    text-decoration: none;
+    color: #666;
+    font-size: 14px;
+    border-bottom: 2px solid transparent;
+}
+
+.tab-nav__item--active {
+    color: #000;
+    font-weight: bold;
+    border-bottom: 2px solid #000;
 }

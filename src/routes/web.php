@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\RequestController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,6 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/attendance/list', [AttendanceController::class, 'list']);
     Route::get('/attendance/detail/{id}', [AttendanceController::class, 'detail']);
     Route::put('/attendance/detail/{id}', [AttendanceController::class, 'update']);
+    Route::get('/stamp_correction_request/list', [RequestController::class, 'list']);
 });
 
 // 管理者認証
