@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AttendanceDetailRequest;
 use App\Models\AttendanceRecord;
 use App\Models\BreakTime;
 use Carbon\Carbon;
@@ -177,5 +178,64 @@ class AttendanceController extends Controller
         $nextMonth = $currentMonth->copy()->addMonth()->format('Y-m');
 
         return view('attendance.list', compact('days', 'currentMonth', 'prevMonth', 'nextMonth'));
+    }
+
+    public function detail($id)
+    {
+        $user = Auth::user();
+
+        $attendance = AttendanceRecord::where('id', $id)
+            ->where('user_id', $user->id)
+            ->with(['breakTimes', 'attendanceCorrections'])
+            ->firstOrFail();
+
+        $isPending = $attendance->attendanceCorrections
+            ->where('status', 0)
+            ->count() > 0;
+
+        return view('attendance.detail', compact('attendance', 'isPending'));
+    }
+
+    public function update(AttendanceDetailRequest $request, $id)
+    {
+        $user = Auth::user();
+
+        $attendance = AttendanceRecord::where('id', $id)
+            ->where('user_id', $user->id)
+            ->firstOrFail();
+
+        $isPending = $attendance->attendanceCorrections
+            ->where('status', 0)
+            ->count() > 0;
+
+        if ($isPending) {
+            return redirect("/attendance/detail/{$id}");
+        }
+
+        // 修正申請を作成
+        $correction = $attendance->attendanceCorrections()->create([
+            'user_id' => $user->id,
+            'new_clock_in' => $request->clock_in,
+            'new_clock_out' => $request->clock_out,
+            'new_comment' => $request->comment,
+            'status' => 0,
+        ]);
+
+        // 休憩の修正申請も保存
+        if ($request->breaks) {
+            foreach ($request->breaks as $breakId => $breakData) {
+                if (!empty($breakData['break_in']) || !empty($breakData['break_out'])) {
+                    $break = BreakTime::find($breakId);
+                    if ($break) {
+                        $break->update([
+                            'break_in' => $breakData['break_in'] ?? $break->break_in,
+                            'break_out' => $breakData['break_out'] ?? $break->break_out,
+                        ]);
+                    }
+                }
+            }
+        }
+
+        return redirect('/stamp_correction_request/list');
     }
 }
