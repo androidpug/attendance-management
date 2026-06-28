@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AttendanceRecordController;
+use App\Http\Controllers\Api\V1\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -14,4 +15,8 @@ Route::prefix('v1')->group(function () {
         Route::put('/attendance-records/{attendanceRecord}', [AttendanceRecordController::class, 'update']);
         Route::delete('/attendance-records/{attendanceRecord}', [AttendanceRecordController::class, 'destroy']);
     });
+
+    // 認証
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 });
