@@ -1,12 +1,56 @@
+:root {
+    /* カラー */
+    --color-black: #000;
+    --color-white: #fff;
+    --color-bg-gray: #F0EFF2;
+    --color-text-gray: #666;
+    --color-text-light-gray: #888;
+    --color-text-dark-gray: #333;
+    --color-border: #eee;
+    --color-border-dark: #ccc;
+    --color-link-blue: #0073CC;
+    --color-error: red;
+    --color-disabled: #ccc;
+    --color-status-bg: #ddd;
+    --color-status-text: #555;
+
+    /* フォントサイズ */
+    --font-xs: 12px;
+    --font-sm: 14px;
+    --font-md: 16px;
+    --font-lg: 18px;
+    --font-xl: 20px;
+    --font-2xl: 24px;
+    --font-3xl: 32px;
+    --font-date: 40px;
+    --font-clock: 80px;
+
+    /* 余白 */
+    --spacing-xs: 5px;
+    --spacing-sm: 10px;
+    --spacing-md: 15px;
+    --spacing-lg: 20px;
+    --spacing-xl: 30px;
+    --spacing-2xl: 40px;
+    --spaceing-btn: 60px;
+
+    /* border-radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 10px;
+    --radius-pill: 20px;
+}
+
 /* ===== 共通 ===== */
 body {
     font-family: sans-serif;
+    letter-spacing: 0.08em;
 }
 
 /* ===== ヘッダー ===== */
 .header {
-    background-color: #000;
-    padding: 15px 30px;
+    background-color: var(--color-black);
+    padding: var(--spacing-md) var(--spacing-xl);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -19,21 +63,20 @@ body {
 .header__nav {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: var(--spacing-xl);
+    font-size: var(--font-2xl);
 }
 
 .header__nav-item {
-    color: #fff;
+    color: var(--color-white);
     text-decoration: none;
-    font-size: 14px;
 }
 
 .header__logout {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 14px;
-    color: #fff;
+    color: var(--color-white);
     padding: 0;
 }
 
@@ -44,11 +87,11 @@ body {
 
 /* ===== 認証画面 ===== */
 .auth-container {
-    background-color: #fff;
+    background-color: var(--color-white);
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 60px 20px;
+    padding: 60px var(--spacing-lg);
 }
 
 .auth-form {
@@ -57,61 +100,77 @@ body {
 }
 
 .auth-form__title {
-    font-size: 24px;
+    font-size: var(--font-2xl);
     font-weight: bold;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: var(--spacing-2xl);
 }
 
 .auth-form__group {
-    margin-bottom: 20px;
+    margin-bottom: var(--spacing-lg);
 }
 
 .auth-form__label {
     display: block;
     font-weight: bold;
     margin-bottom: 8px;
-    font-size: 14px;
+    font-size: var(--font-2xl);
 }
 
 .auth-form__input {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
+    border: 1px solid var(--color-border-dark);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-2xl);
 }
 
 .auth-form__button {
     width: 100%;
-    padding: 15px;
-    background-color: #000;
-    color: #fff;
+    padding: var(--spacing-md);
+    background-color: var(--color-black);
+    color: var(--color-white);
     border: none;
-    border-radius: 4px;
-    font-size: 16px;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-2xl);
     font-weight: bold;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: var(--spacing-lg);
 }
 
 .auth-form__link {
     display: block;
     text-align: center;
-    margin-top: 20px;
-    color: #0066cc;
-    font-size: 14px;
+    margin-top: var(--spacing-lg);
+    color: var(--color-link-blue);
+    font-size: var(--font-xl);
+    text-decoration: none;
+}
+
+.auth-form__button--inline {
+    display: block;
+    width: 260px;
+    margin: 0 auto;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #ddd;
+    color: #000;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    font-size: var(--font-xl);
+    font-weight: bold;
 }
 
 .error-message {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
+    color: var(--color-error);
+    font-size: var(--font-xs);
+    margin-top: var(--spacing-xs);
 }
 
 /* ===== 打刻画面 ===== */
 .clock-container {
-    background-color: #f5f5f5;
+    background-color: var(--color-bg-gray);
     min-height: calc(100vh - 60px);
     display: flex;
     justify-content: center;
@@ -124,123 +183,125 @@ body {
 
 .clock-status {
     display: inline-block;
-    background-color: #ddd;
-    color: #555;
-    padding: 6px 20px;
-    border-radius: 20px;
-    font-size: 14px;
-    margin-bottom: 20px;
+    background-color: var(--color-status-bg);
+    color: var(--color-status-text);
+    padding: 6px var(--spacing-lg);
+    border-radius: var(--radius-pill);
+    margin-bottom: var(--spacing-lg);
 }
 
 .clock-date {
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: var(--font-date);
+    font-weight: 400;
+    margin: var(--spacing-lg) 0 var(--spacing-sm);
 }
 
 .clock-time {
-    font-size: 80px;
+    font-size: var(--font-clock);
     font-weight: bold;
-    margin-bottom: 40px;
+    margin-top: 0;
+    margin-bottom: var(--spacing-2xl);
 }
 
 .clock-buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: var(--spaceing-btn);
 }
 
 .btn {
-    padding: 15px 60px;
-    font-size: 18px;
+    padding: var(--spacing-md) 60px;
+    font-size: var(--font-2xl);
     font-weight: bold;
     border: none;
-    border-radius: 10px;
+    border-radius: var(--radius-lg);
     cursor: pointer;
+    text-decoration: none;
 }
 
 .btn--primary {
-    background-color: #000;
-    color: #fff;
+    background-color: var(--color-black);
+    color: var(--color-white);
 }
 
 .btn--secondary {
-    background-color: #fff;
-    color: #000;
-    border: 1px solid #ccc;
+    background-color: var(--color-white);
+    color: var(--color-black);
+    border: 1px solid var(--color-border-dark);
 }
 
 .clock-message {
-    font-size: 18px;
+    font-size: var(--font-lg);
     font-weight: bold;
 }
 
 /* ===== 勤怠一覧・共通ページ ===== */
 .attendance-list-container {
-    background-color: #f5f5f5;
+    background-color: var(--color-bg-gray);
     min-height: calc(100vh - 60px);
-    padding: 40px;
+    padding: var(--spacing-2xl);
 }
 
 .attendance-list-inner {
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
 .page-title {
-    font-size: 20px;
+    font-size: var(--font-3xl);
     font-weight: bold;
-    border-left: 4px solid #000;
+    border-left: 4px solid var(--color-black);
     padding-left: 12px;
-    margin-bottom: 30px;
+    margin-bottom: var(--spacing-xl);
 }
 
 .month-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #fff;
-    padding: 15px 20px;
-    border-radius: 4px;
-    margin-bottom: 20px;
+    background-color: var(--color-white);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--spacing-lg);
 }
 
 .month-nav__prev,
 .month-nav__next {
-    color: #333;
+    color: var(--color-text-dark-gray);
     text-decoration: none;
-    font-size: 14px;
+    font-size: var(--font-sm);
 }
 
 .month-nav__current {
     font-weight: bold;
-    font-size: 16px;
+    font-size: var(--font-md);
 }
 
 .attendance-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #fff;
-    border-radius: 4px;
+    background-color: var(--color-white);
+    border-radius: var(--radius-sm);
     overflow: hidden;
     table-layout: fixed;
 }
 
 .attendance-table th {
-    padding: 12px 16px;
+    padding: 24px 16px;
     text-align: left;
-    font-size: 14px;
-    color: #666;
-    border-bottom: 1px solid #eee;
+    font-size: var(--font-md);
+    color: var(--color-text-gray);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .attendance-table td {
-    padding: 12px 16px;
-    font-size: 14px;
-    border-bottom: 1px solid #eee;
+    padding: 24px 16px;
+    font-size: var(--font-md);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .detail-link {
-    color: #000;
+    color: var(--color-black);
     font-weight: bold;
     text-decoration: none;
 }
@@ -254,56 +315,56 @@ body {
 
 /* ===== 勤怠詳細画面 ===== */
 .detail-card {
-    background-color: #fff;
-    border-radius: 4px;
+    background-color: var(--color-white);
+    border-radius: var(--radius-sm);
     overflow: hidden;
-    margin-bottom: 30px;
+    margin-bottom: var(--spacing-xl);
 }
 
 .detail-row {
     display: flex;
     align-items: center;
-    padding: 20px 30px;
-    border-bottom: 1px solid #eee;
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .detail-label {
     width: 200px;
-    color: #888;
-    font-size: 14px;
+    color: var(--color-text-light-gray);
+    font-size: var(--font-md);
 }
 
 .detail-value {
     flex: 1;
     font-weight: bold;
-    font-size: 14px;
+    font-size: var(--font-md);
 }
 
 .detail-time {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: var(--spacing-md);
 }
 
 .detail-tilde {
-    font-size: 16px;
+    font-size: var(--font-md);
 }
 
 .detail-input {
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid var(--color-border-dark);
+    border-radius: var(--radius-sm);
     padding: 8px 12px;
-    font-size: 14px;
+    font-size: var(--font-sm);
     width: 100px;
 }
 
 .detail-textarea {
     width: 100%;
     max-width: 400px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--color-border-dark);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-sm);
     min-height: 80px;
 }
 
@@ -313,55 +374,57 @@ body {
 }
 
 .pending-message {
-    color: red;
+    color: var(--color-error);
     text-align: right;
-    font-size: 14px;
-    margin-top: 10px;
+    font-size: var(--font-lg);
+    margin-top: var(--spacing-sm);
+    opacity: 0.5;
 }
 
 /* ===== タブナビゲーション ===== */
 .tab-nav {
     display: flex;
     border-bottom: 1px solid #ddd;
-    margin-bottom: 20px;
+    margin-bottom: var(--spacing-lg);
 }
 
 .tab-nav__item {
-    padding: 12px 30px;
+    padding: 12px var(--spacing-xl);
     text-decoration: none;
-    color: #666;
-    font-size: 14px;
+    color: var(--color-text-gray);
+    font-size: var(--font-md);
     border-bottom: 2px solid transparent;
 }
 
 .tab-nav__item--active {
-    color: #000;
+    color: var(--color-black);
     font-weight: bold;
-    border-bottom: 2px solid #000;
+    border-bottom: 2px solid var(--color-black);
 }
 
 .detail-link--disabled {
-    color: #ccc;
+    color: var(--color-disabled);
     cursor: default;
     font-weight: normal;
 }
 
 /* ===== レポート画面 ===== */
 .report-card {
-    background-color: #fff;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 20px;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
     min-width: 180px;
 }
 
 .report-card__label {
-    font-size: 12px;
-    color: #666;
-    margin-bottom: 10px;
+    font-size: var(--font-sm);
+    color: var(--color-text-gray);
+    margin-bottom: var(--spacing-sm);
 }
 
 .report-card__value {
-    font-size: 24px;
+    font-size: var(--font-2xl);
     font-weight: bold;
+    margin: 0;
 }

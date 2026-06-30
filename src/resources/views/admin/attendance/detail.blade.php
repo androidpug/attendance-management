@@ -88,7 +88,7 @@
             </div>
 
             @if($isPending)
-                <p class="pending-message">＊承認待ちのため修正はできません。</p>
+                <p class="pending-message">*承認待ちのため修正はできません。</p>
             @else
                 <div class="detail-submit">
                     <button type="submit" class="btn btn--primary">修正</button>
