@@ -44,7 +44,7 @@
         </table>
 
         <h2 style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">今月の異常検知</h2>
-        <p style="font-size: 12px; color: #666; margin-bottom: 15px;">基準: 始業 09:00 / 終業 18:00 / 長時間労働は１日 10 時間超</p>
+        <p style="font-size: 14px; color: #666; margin-bottom: 15px;">基準: 始業 09:00 / 終業 18:00 / 長時間労働は１日 10 時間超</p>
         <div style="display: flex; gap: 20px;">
             <div class="report-card">
                 <p class="report-card__label">遅刻回数</p>

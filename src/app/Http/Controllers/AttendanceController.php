@@ -251,7 +251,7 @@ class AttendanceController extends Controller
         $workDays = 0;
 
         for ($i = 5; $i >= 0; $i--) {
-            $month = $now->copy()->subMonths($i);
+            $month = $now->copy()->startOfMonth()->subMonths($i);
             $records = AttendanceRecord::where('user_id', $user->id)
                 ->whereYear('date', $month->year)
                 ->whereMonth('date', $month->month)
